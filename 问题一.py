@@ -13,8 +13,9 @@ for  s in feature_train.columns:
         del feature_train[s]    
 feature_1=feature_train.columns # 删除数据只有一种后留下的特征
 zero_feature = list(set(list(feature)).difference(set(list(feature_1))))  # 求差集 在feature中但是不在feature_1中 这里就是指值全为0的变量
-
-
+# 上面求差集就相当于用feature减去feature_1
+answer=['ALogP','ALogp2','AMR','C3SP2', 'C1SP2','ATSc1', 'ATSc2', 'ATSc3', 'ATSc4','LipoaffinityIndex','BCUTc-1l', 'BCUTc-1h', 'BCUTp-1l', 'BCUTp-1h','XLogP','MDEC-22', 'MDEC-23', 'MDEC-33','minssCH2', 'minHBa', 'mindssC','MLFER_A','CrippenLogP','nAcid']
+union = list(set(answer)&set(zero_feature)) # union为空集，这个是值全为零的变量和标准答案比较，看有没有把标准答案删掉了
 
 
 
@@ -25,6 +26,7 @@ for  s in feature_train.columns:
         del feature_train[s]  
 feature_2=feature_train.columns # 删除重复率大于0.9的特征后留下的特征
 
+nine_feature=list(set(list(feature_1)).difference(set(list(feature_2))))
 # 画出y的函数密度图
 import matplotlib.pyplot as plt 
 import seaborn as sns
