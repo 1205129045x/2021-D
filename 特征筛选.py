@@ -52,3 +52,7 @@ for i in range(39):
                 if len(choose_feature)==20:
                     break;
                 choose_feature.remove(cor.columns[j])
+
+final_feature_train=feature_train[choose_feature]
+
+final_feature_train.shape
