@@ -11,7 +11,8 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "env": {"PYDEVD_WARN_SLOW_RESOLVE_TIMEOUT": "2"}
+            "env": {"PYDEVD_WARN_SLOW_RESOLVE_TIMEOUT": "500",
+            "PYDEVD_WARN_EVALUATION_TIMEOUT": "500"}
         }
     ],
     "env": {"PYDEVD_WARN_SLOW_RESOLVE_TIMEOUT": "2"}
