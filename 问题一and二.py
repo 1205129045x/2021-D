@@ -52,9 +52,9 @@ for i in range(len(cor)):
                 if len(choose_feature)==20:
                     break;
                 choose_feature.remove(cor.columns[j])
-answer=['ALogP','ALogp2','AMR','C3SP2', 'C1SP2','ATSc1', 'ATSc2', 'ATSc3', 'ATSc4','LipoaffinityIndex','BCUTc-1l', 'BCUTc-1h', 'BCUTp-1l', 'BCUTp-1h','XLogP','MDEC-22', 'MDEC-23', 'MDEC-33','minssCH2', 'minHBa', 'mindssC','MLFER_A','CrippenLogP','nAcid']
-feature_train=pd.read_csv('Molecular_Descriptor.csv',index_col='SMILES')
-final_feature_train=feature_train[answer]
+# answer=['ALogP','ALogp2','AMR','C3SP2', 'C1SP2','ATSc1', 'ATSc2', 'ATSc3', 'ATSc4','LipoaffinityIndex','BCUTc-1l', 'BCUTc-1h', 'BCUTp-1l', 'BCUTp-1h','XLogP','MDEC-22', 'MDEC-23', 'MDEC-33','minssCH2', 'minHBa', 'mindssC','MLFER_A','CrippenLogP','nAcid']
+# feature_train=pd.read_csv('Molecular_Descriptor.csv',index_col='SMILES')
+final_feature_train=feature_train[choose_feature[:20]]
 
 ##############deep-森林##################
 # 导入机器学习库
@@ -110,4 +110,13 @@ for name, clf in zip(names, classifiers):
     regressor_df.loc[name]['MSE']=MSE
     regressor_df.loc[name]['R2'] = R2
 
-regressor_df.to_csv('20个给出的答案的误差.csv')
+####### 第二问答案写入 #####
+feature_test=pd.read_csv('Molecular_Descriptor_test.csv',index_col='SMILES')
+feature_test=feature_test[choose_feature[:20]]
+feature_test = scaler.transform(feature_test.values)
+label_test=pd.read_csv('ERα_activity_test.csv',index_col='SMILES')
+
+clf=CascadeForestRegressor(verbose=False,n_jobs=-1,random_state=56)
+clf.fit(X_train, y_train.ravel())
+y_pred = clf.predict(feature_test)
+pd.DataFrame(y_pred).to_csv('第二问结果.csv')
