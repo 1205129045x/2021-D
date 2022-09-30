@@ -12,6 +12,7 @@
             "console": "internalConsole",
             "justMyCode": true,
             "timeout": 10,
+            "internalConsoleOptions": "openOnSessionStart",
             "env": {"PYDEVD_WARN_SLOW_RESOLVE_TIMEOUT": "500",
             "PYDEVD_WARN_EVALUATION_TIMEOUT": "500"}
         }
